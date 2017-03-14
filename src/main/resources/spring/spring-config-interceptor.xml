@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+			
+	<mvc:interceptors>
+		<!-- mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/login"/>
+            <mvc:exclude-mapping path="/loginProcess"/>
+            <mvc:exclude-mapping path="/common/**"/>
+            <mvc:exclude-mapping path="/resources/**" />
+            <bean id="loginInterceptor" class="co.kr.mnm.util.common.LoginInterceptor" />
+        </mvc:interceptor -->
+		<mvc:interceptor>
+			<mvc:mapping path="/logout" />
+			<bean id="webContentInterceptor"
+				class="org.springframework.web.servlet.mvc.WebContentInterceptor">
+				<property name="cacheSeconds" value="0" />
+				<property name="useExpiresHeader" value="true" />
+				<property name="useCacheControlHeader" value="true" />
+				<property name="useCacheControlNoStore" value="true" />
+			</bean>
+		</mvc:interceptor>
+		<mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean id="contentInterceptor"  class="org.springframework.web.servlet.mvc.WebContentInterceptor">
+                <property name="cacheSeconds" value="0"/>
+            </bean>
+        </mvc:interceptor>
+        <mvc:interceptor>
+        	<mvc:mapping path="/**"/>
+	        <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+	            <property name="paramName" value="lang" />
+	        </bean>
+        </mvc:interceptor>
+	</mvc:interceptors>
+</beans>
